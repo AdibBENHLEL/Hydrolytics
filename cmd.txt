@@ -1,0 +1,15 @@
+cd "D:\MP1DS TP\project Big data"
+docker-compose down
+docker-compose up -d --build
+docker-compose ps
+docker logs n8n --tail 20
+
+
+docker exec -it postgres psql -U postgres
+ALTER USER admin WITH PASSWORD 'yStrongBigNoData1542workflowour';
+\q
+
+
+docker login
+docker tag projectbigdata-streamlit TON_USERNAME/streamlit-irrigation:latest
+docker push TON_USERNAME/streamlit-irrigation:latest

@@ -11,5 +11,42 @@ ALTER USER admin WITH PASSWORD 'yStrongBigNoData1542workflowour';
 
 
 docker login
-docker tag projectbigdata-streamlit TON_USERNAME/streamlit-irrigation:latest
-docker push TON_USERNAME/streamlit-irrigation:latest
+docker tag  projectbigdata adibbh/Hydrolytics:latest
+docker push adibbh/Hydrolytics:latest
+
+
+docker-compose down
+docker-compose up -d --build
+docker-compose ps
+
+docker exec -it postgres env | findstr POSTGRES
+docker exec -it streamlit env | findstr POSTGRES
+
+
+
+
+
+
+
+2️⃣ Après redémarrage — relance le projet
+docker-compose down
+docker-compose up -d
+docker-compose ps
+
+3️⃣ Si Kafka échoue encore — vérifie les logs
+docker logs kafka1 --tail 20
+
+4️⃣ Si le problème persiste — reset Kafka
+Kafka garde parfois un état corrompu. Supprime son volume :
+docker-compose down
+docker volume ls
+docker volume rm projectbigdata_kafka_data
+docker-compose up -d
+
+⚠️ Kafka utilise /tmp/kafka-logs dans le container — pas un volume nommé. Si ça crash encore c'est le container lui-même qui est corrompu.
+
+Force la recréation :
+cmddocker-compose down --remove-orphans
+docker rm -f kafka1
+docker-compose up -d
+docker-compose ps

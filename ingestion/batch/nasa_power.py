@@ -20,7 +20,7 @@ PARCELLES = [
 
 
 MINIO_CONFIG = {
-    "endpoint_url":          f"http://{os.getenv('MINIO_HOST', 'minio')}:9000",
+    "endpoint_url":          f"http://{os.getenv('MINIO_HOST', 'minio')}:9001",
     "aws_access_key_id":     ${MINIO_ROOT_USER},
     "aws_secret_access_key": ${MINIO_ROOT_PASSWORD}
 }

@@ -198,11 +198,12 @@ def calcul_volume(etp, pluie, humidite_sol, surface_m2=1000):
 ### 1. Cloner le dépôt
 
 ```bash
-git clone https://github.com/adib/irrigation-pipeline.git
-cd irrigation-pipeline
+git clone https://github.com/AdibBENHLEL/Hydrolytics.git
 ```
 
-### 2. Lancer tous les services
+### 2. pull the image puis Lancer tous les services
+
+docker pull adibbh/hydrolytics
 
 ```bash
 docker-compose up -d --build

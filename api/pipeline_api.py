@@ -76,4 +76,4 @@ if __name__ == '__main__':
     print(f"🚀 Pipeline API démarrée — BASE_DIR: {BASE_DIR}")
     print(f"🐘 PostgreSQL: {PG_CONFIG['host']}")
     print(f"🪣 MinIO: {MINIO_HOST}")
-    app.run(host='0.0.0.0', port=8000, debug=False)
+    app.run(host='0.0.0.0', port=8950, debug=False)

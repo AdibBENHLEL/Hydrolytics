@@ -1,3 +1,5 @@
+version: "3.8"
+
 networks:
   irrigation-net:
     driver: bridge
@@ -8,22 +10,22 @@ volumes:
   n8n_data:
 
 services:
-  kafka:
+  kafka1:
     image: apache/kafka:3.7.0
     container_name: kafka1
     ports:
-      - "9092:9092"
+      - "9094:9094"
     environment:
-      KAFKA_NODE_ID: 1
+      KAFKA_NODE_ID: 2
       KAFKA_PROCESS_ROLES: broker,controller
-      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka1:9092
-      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka1:9093
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9094,CONTROLLER://0.0.0.0:9095
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka1:9094
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 2@kafka1:9095
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     healthcheck:
-      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server localhost:9092 > /dev/null 2>&1"]
+      test: ["CMD", "/opt/kafka/bin/kafka-topics.sh", "--bootstrap-server", "localhost:9094", "--list"]
       interval: 10s
       timeout: 10s
       retries: 10
@@ -69,10 +71,10 @@ services:
     build: ./ingestion/streaming
     container_name: iot-simulator
     depends_on:
-      kafka:
+      kafka1:
         condition: service_healthy
     environment:
-      KAFKA_BROKER: kafka1:9092
+      KAFKA_BROKER: kafka1:9094
       TOPIC: capteurs-sol
     restart: on-failure
     networks:
@@ -83,12 +85,12 @@ services:
     container_name: kafka-consumer
     command: ["python", "kafka_consumer.py"]
     depends_on:
-      kafka:
+      kafka1:
         condition: service_healthy
       postgres:
         condition: service_healthy
     environment:
-      KAFKA_BROKER: kafka1:9092
+      KAFKA_BROKER: kafka1:9094
       POSTGRES_HOST: postgres
     networks:
       - irrigation-net
@@ -97,7 +99,7 @@ services:
     build: ./api
     container_name: pipeline-api
     ports:
-      - "8000:8000"
+      - "8950:8950"
     depends_on:
       postgres:
         condition: service_healthy
@@ -119,7 +121,7 @@ services:
     build: ./dashboard
     container_name: streamlit
     ports:
-      - "8501:8501"
+      - "8591:8591"
     depends_on:
       postgres:
         condition: service_healthy

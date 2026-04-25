@@ -5,7 +5,7 @@ from kafka import KafkaProducer
 from kafka.errors import NoBrokersAvailable
 import os
 
-KAFKA_BROKER = os.getenv("KAFKA_BROKER", "kafka1:9092")
+KAFKA_BROKER = os.getenv("KAFKA_BROKER", "kafka1:9094")
 TOPIC = os.getenv("TOPIC", "capteurs-sol")
 
 PARCELLES = {

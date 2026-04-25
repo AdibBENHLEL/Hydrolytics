@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 from datetime import datetime
 import os
 st.set_page_config(
-    page_title="💧 Irrigation Intelligente by adib",
+    page_title="Hydrolytics by adib",
     page_icon="💧",
     layout="wide"
 )
@@ -20,9 +20,9 @@ PG_CONFIG = {
     "password": os.getenv("POSTGRES_PASSWORD", "password123")
 }
 
-# ── AUTO REFRESH toutes les 5 secondes ────────────────────
+# ── AUTO REFRESH toutes les 20 secondes ────────────────────
 st.markdown(
-    "<meta http-equiv='refresh' content='60'>",
+    "<meta http-equiv='refresh' content='20'>",
     unsafe_allow_html=True
 )
 
@@ -64,8 +64,8 @@ df_meteo    = load_meteo()
 alertes     = df_stress[df_stress["alerte"] == True]
 
 # ── HEADER ────────────────────────────────────────────────
-st.title("💧 Gestion Intelligente des Ressources en Eau")
-st.caption(f"🕐 Dernière mise à jour : {datetime.now().strftime('%H:%M:%S')} — Refresh auto toutes les 5s")
+st.title("Hydrolytics 💧 Gestion Intelligente des Ressources en Eau")
+st.caption(f"🕐 Dernière mise à jour : {datetime.now().strftime('%H:%M:%S')} — Refresh auto toutes les 20s")
 
 # ── KPIs ──────────────────────────────────────────────────
 st.subheader("📊 État des Parcelles")

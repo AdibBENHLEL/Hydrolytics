@@ -7,7 +7,7 @@ import os
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 log = logging.getLogger(__name__)
 
-KAFKA_BROKER = os.getenv("KAFKA_BROKER", "kafka1:9092")
+KAFKA_BROKER = os.getenv("KAFKA_BROKER", "kafka1:9094")
 
 
 PG_CONFIG = {

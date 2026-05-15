@@ -11,10 +11,10 @@ KAFKA_BROKER = os.getenv("KAFKA_BROKER", "kafka1:9094")
 
 
 PG_CONFIG = {
-    "host": os.getenv("POSTGRES_HOST", "postgres"),
-    "database": os.getenv("POSTGRES_DB", "irrigation"),
-    "user": os.getenv("POSTGRES_USER", "admin"),
-    "password": os.getenv("POSTGRES_PASSWORD", "password123")
+    "host": os.getenv("POSTGRES_HOST"),
+    "database": os.getenv("POSTGRES_DB"),
+    "user": os.getenv("POSTGRES_USER"),
+    "password": os.getenv("POSTGRES_PASSWORD")
 }
 
 

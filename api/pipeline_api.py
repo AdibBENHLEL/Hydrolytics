@@ -10,10 +10,10 @@ BASE_DIR = "/app"
 
 # ── Config depuis variables d'environnement Docker ─────────
 PG_CONFIG = {
-    "host": os.getenv("POSTGRES_HOST", "localhost"),
-    "database": os.getenv("POSTGRES_DB", "irrigation"),
-    "user": os.getenv("POSTGRES_USER", "admin"),
-    "password": os.getenv("POSTGRES_PASSWORD", "password123")
+    "host": os.getenv("POSTGRES_HOST"),
+    "database": os.getenv("POSTGRES_DB"),
+    "user": os.getenv("POSTGRES_USER"),
+"password":os.getenv("POSTGRES_PASSWORD")
 }
 
 MINIO_HOST = os.getenv("MINIO_HOST", "minio")
